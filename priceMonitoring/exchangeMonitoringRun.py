@@ -196,7 +196,8 @@ def run(coin_file="coin", price_compare_interval=3600, sleep_time=10, min_alert_
 			for exchange in exchange_list: 
 				if exchange in coin_prices_deque[coin]: 
 					coin_prices_deque[coin][exchange].append(coin_price_dict[coin][exchange])
-					coin_prices_deque[coin][exchange].popleft() 
+					if len(coin_prices_deque[coin][exchange]) > price_compare_interval//sleep_time: 
+						coin_prices_deque[coin][exchange].popleft() 
 				else: 
 					coin_prices_deque[coin][exchange] = deque([coin_price_dict[coin][exchange]])
 
